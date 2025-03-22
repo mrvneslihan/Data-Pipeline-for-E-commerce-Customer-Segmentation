@@ -4,15 +4,10 @@ services:
     command: server local
     ports:
       - "8080:8080"
+      - "8081:8081"
     volumes:
       - kestra-data:/app/storage
-    networks:
-      - kestra_default
     user: root
-
+    
 volumes:
   kestra-data:
-
-networks:
-  kestra_default:
-    driver: bridge

@@ -1,14 +1,18 @@
 services:
   kestra:
     image: kestra/kestra:latest
-    container_name: kestra-server
+    command: server local
     ports:
       - "8080:8080"
     volumes:
       - kestra-data:/app/storage
-    environment:
-      - KESTRA_STORAGE_TYPE=local
-    command: server local
+    networks:
+      - kestra_default
+    user: root
 
 volumes:
   kestra-data:
+
+networks:
+  kestra_default:
+    driver: bridge

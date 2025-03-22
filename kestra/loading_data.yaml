@@ -1,0 +1,159 @@
+id: loading_data
+namespace: zoomcamp-project
+description: |
+  Loading customer data to GCS and Bigquery from https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/releases/tag/dataset .
+
+inputs: 
+  - id: table_name
+    type: SELECT
+    displayName: Select table to upload
+    values: [order_items, orders, products, users]
+
+variables:
+  file: "{{inputs.table_name}}.csv"
+  gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}"
+  table: "{{kv('GCP_DATASET')}}.{{inputs.table_name}}"
+  data: "{{outputs.extract.outputFiles[inputs.table_name ~ '.csv']}}"
+
+tasks:
+  - id: set_label
+    type: io.kestra.plugin.core.execution.Labels
+    labels:
+      file: "{{render(vars.file)}}"
+      table: "{{inputs.table_name}}"
+
+  - id: extract
+    type: io.kestra.plugin.scripts.shell.Commands
+    outputFiles:
+      - "{{inputs.table_name}}.csv"
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    commands:
+      - wget -q https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/releases/download/dataset/{{inputs.table_name}}.csv 
+
+      
+  - id: upload_to_gcs
+    type: io.kestra.plugin.gcp.gcs.Upload
+    from: "{{render(vars.data)}}"
+    to: "{{render(vars.gcs_file)}}"
+
+  - id: if_order_items
+    type: io.kestra.plugin.core.flow.If
+    condition: "{{inputs.table_name == 'order_items'}}"
+    then:
+      - id: bq_order_items
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE EXTERNAL TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`
+          (
+              id NUMERIC,
+              order_id NUMERIC,
+              user_id NUMERIC,
+              product_id NUMERIC,
+              inventory_item_id NUMERIC,
+              status STRING,
+              created_at TIMESTAMP,
+              shipped_at TIMESTAMP,
+              delivered_at TIMESTAMP,
+              returned_at TIMESTAMP,
+              sale_price FLOAT64
+          )
+          OPTIONS (
+              format = 'CSV',
+              uris = ['{{render(vars.gcs_file)}}'],
+              skip_leading_rows = 1,
+              ignore_unknown_values = TRUE
+          );
+
+  - id: if_orders
+    type: io.kestra.plugin.core.flow.If
+    condition: "{{inputs.table_name == 'orders'}}"
+    then:
+      - id: bq_orders
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE EXTERNAL TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`
+          (
+              order_id NUMERIC,
+              user_id NUMERIC,
+              status STRING,
+              gender STRING,
+              created_at TIMESTAMP,
+              returned_at TIMESTAMP, 
+              shipped_at TIMESTAMP,
+              delivered_at TIMESTAMP,
+              num_of_item NUMERIC
+          )
+          OPTIONS (
+              format = 'CSV',
+              uris = ['{{render(vars.gcs_file)}}'],
+              skip_leading_rows = 1,
+              ignore_unknown_values = TRUE
+          );
+
+  - id: if_products
+    type: io.kestra.plugin.core.flow.If
+    condition: "{{inputs.table_name == 'products'}}"
+    then:
+      - id: bq_products
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE EXTERNAL TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`
+          (
+              id NUMERIC,
+              cost FLOAT64,
+              category STRING,
+              name STRING,
+              brand STRING,
+              retail_price FLOAT64, 
+              department STRING,
+              sku STRING,
+              distribution_center_id NUMERIC
+          )
+          OPTIONS (
+              format = 'CSV',
+              uris = ['{{render(vars.gcs_file)}}'],
+              skip_leading_rows = 1,
+              ignore_unknown_values = TRUE
+          );
+
+  - id: if_users
+    type: io.kestra.plugin.core.flow.If
+    condition: "{{inputs.table_name == 'users'}}"
+    then:
+      - id: bq_users
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE EXTERNAL TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`
+          (
+              id NUMERIC,
+              first_name STRING,
+              lastname STRING,
+              email STRING,
+              age NUMERIC,
+              gender STRING,
+              state STRING,
+              street_address STRING,
+              postal_code STRING, 
+              city STRING,
+              country STRING,
+              latitude FLOAT64,
+              longitude FLOAT64,
+              traffic_source STRING,
+              created_at TIMESTAMP,
+              user_geom GEOGRAPHY
+          )
+          OPTIONS (
+              format = 'CSV',
+              uris = ['{{render(vars.gcs_file)}}'],
+              skip_leading_rows = 1,
+              ignore_unknown_values = TRUE
+          );
+
+pluginDefaults:
+  - type: io.kestra.plugin.gcp
+    values:
+      serviceAccount: "{{kv('GCP_CREDS')}}"
+      projectId: "{{kv('GCP_PROJECT_ID')}}"
+      location: "{{kv('GCP_LOCATION')}}"
+      bucket: "{{kv('GCP_BUCKET_NAME')}}"

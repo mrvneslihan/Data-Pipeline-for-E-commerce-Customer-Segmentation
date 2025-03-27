@@ -1,0 +1,92 @@
+version: 2
+
+models:
+  - name: mart_users
+    description: >
+      User-level aggregated data enriched with RFM (Recency, Frequency, Monetary) metrics, segmentation labels,
+      and user information including location for mapping and visualization.
+    columns:
+      - name: user_id
+        description: Unique identifier for each user.
+        tests:
+          - not_null:
+              severity: warn
+          - unique:
+              severity: warn
+
+      - name: name
+        description: Name of the user.
+
+      - name: email
+        description: Email address of the user.
+
+      - name: signup_date
+        description: Date when the user signed up.
+
+      - name: geom
+        description: Geographic data representing user location.
+
+      - name: rfm_segment
+        description: RFM segment classification," Champions, Loyal Customers, or Need Attention."
+
+  - name: fact_sales
+    description: >
+      A fact table containing transactional sales data enriched with product information. 
+      Each row represents a sold item including user, product, sale amount, profit, and time of purchase. 
+      This model joins order items with product data to calculate profit per item sold.
+    columns:
+      - name: order_item_id
+        description: "Unique identifier for each product in an order."
+        tests:
+          - not_null:
+              severity: warn
+          - unique:
+              severity: warn
+
+      - name: order_id
+        description: "Identifier of the order this item belongs to."
+
+      - name: user_id
+        description: "The ID of the user who made the purchase."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: product_id
+        description: "The ID of the purchased product."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: order_time
+        description: "Timestamp of when the order was placed."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: sale_price
+        description: "Sale price at which the product was sold."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: product_name
+        description: "Name of the purchased product."
+
+      - name: product_brand
+        description: "Brand of the purchased product."
+
+      - name: category
+        description: "Product's category."
+
+      - name: department
+        description: "Department the product belongs to."
+
+      - name: cost
+        description: "Cost to produce or acquire the product."
+
+      - name: profit
+        description: "Profit from the sale (sale_price - cost)."
+        tests:
+          - not_null:
+              severity: warn

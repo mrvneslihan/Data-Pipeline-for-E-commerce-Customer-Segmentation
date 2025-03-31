@@ -18,7 +18,7 @@ A popular method for customer segmentation, RFM analysis, was used. This analysi
 - **PowerBI:** Data Visualisation
 
 ## Data Pipeline Architecture
-https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/architecture.png?raw=true
+![Data Pipeline Architecture](https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/architecture.png?raw=true)
 ## How to Set Up and Reproduce the Data Pipeline
 
 1. **Create a Google Cloud Platform Account**  

@@ -18,7 +18,7 @@ A popular method for customer segmentation, RFM analysis, was used. This analysi
 - **PowerBI:** Data Visualisation
 
 ## Data Pipeline Architecture
-https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/architecture.png
+https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/architecture.png?raw=true
 ## How to Set Up and Reproduce the Data Pipeline
 
 1. **Create a Google Cloud Platform Account**  
@@ -49,4 +49,4 @@ Apply the dbt project from the repository to transform the data. This will invol
 Once the data transformation is complete, open the mart_users and fact_sales tables in Power BI to visualize the segmented customers and analyze sales performance. This step will allow you to create meaningful insights based on customer segmentation and sales data.
 
 ## Costumer Segmentation Dashboard
-https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/dashboard.png
+https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/dashboard.png?raw=true

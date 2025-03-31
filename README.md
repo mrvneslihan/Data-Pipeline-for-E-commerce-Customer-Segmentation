@@ -1,6 +1,7 @@
 # Data-Pipeline-for-E-commerce-Customer-Segmentation
 The Data Pipeline for E-Commerce Customer Segmentation project is the final project of the Data Engineering Zoomcamp organized by DataTalksClub.  
 In this project, the The Look E-Commerce dataset from BigQuery public datasets was used.
+https://console.cloud.google.com/marketplace/product/bigquery-public-data/thelook-ecommerce?project=tamr-internal-data-products
 
 ## Problem Definition
 

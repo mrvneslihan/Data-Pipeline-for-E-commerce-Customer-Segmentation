@@ -51,3 +51,12 @@ Once the data transformation is complete, open the mart_users and fact_sales tab
 
 ## Costumer Segmentation Dashboard
 ![Customer Segmentation Dashboard](https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/dashboard.png?raw=true)
+
+
+### Contact Information
+
+For any questions, suggestions, or feedback, feel free to reach out:
+
+- **Email:** merveneslihan08@gmail.com
+- **LinkedIn:** [My LinkedIn Profile](www.linkedin.com/in/merveneslihanokcu)
+- **GitHub:** [My GitHub Profile](https://github.com/mrvneslihan)

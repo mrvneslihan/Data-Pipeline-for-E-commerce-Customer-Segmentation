@@ -1,12 +1,11 @@
 # Data-Pipeline-for-E-commerce-Customer-Segmentation
 The Data Pipeline for E-Commerce Customer Segmentation project is the final project of the Data Engineering Zoomcamp organized by DataTalksClub.  
-In this project, the The Look E-Commerce dataset from BigQuery public datasets was used.
-https://console.cloud.google.com/marketplace/product/bigquery-public-data/thelook-ecommerce?project=tamr-internal-data-products
+In this project, the TheLook E-Commerce dataset from BigQuery public datasets was used.
+[TheLook E-commerce Dataset](https://console.cloud.google.com/marketplace/product/bigquery-public-data/thelook-ecommerce?project=tamr-internal-data-products)
 
 ## Problem Definition
 
-The problem can be defined as identifying customer segments and gaining insights into segmented customers to improve sales and marketing activities.  
-A popular method for customer segmentation, RFM analysis, was used. This analysis segments customers based on three factors: Recency, which represents the time since their last purchase; Frequency, indicating how often they make purchases; and Monetary, which measures the total amount they have spent.
+The problem can be defined as identifying customer segments and gaining insights into segmented customers to improve sales and marketing activities. A popular method for customer segmentation, RFM analysis, was used. This analysis segments customers based on three factors: **Recency**, which represents the time since their last purchase; **Frequency**, indicating how often they make purchases; and **Monetary**, which measures the total amount they have spent.
 
 ## Tools used in the Data Pipeline:
 
@@ -20,6 +19,7 @@ A popular method for customer segmentation, RFM analysis, was used. This analysi
 
 ## Data Pipeline Architecture
 ![Data Pipeline Architecture](https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/architecture.png?raw=true)
+
 ## How to Set Up and Reproduce the Data Pipeline
 
 1. **Create a Google Cloud Platform Account**  

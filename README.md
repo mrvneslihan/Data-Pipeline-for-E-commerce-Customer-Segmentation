@@ -1,6 +1,7 @@
 # Data-Pipeline-for-E-commerce-Customer-Segmentation
 The Data Pipeline for E-Commerce Customer Segmentation project is the final project of the Data Engineering Zoomcamp organized by DataTalksClub.  
 In this project, the TheLook E-Commerce dataset from BigQuery public datasets was used.
+
 [TheLook E-commerce Dataset](https://console.cloud.google.com/marketplace/product/bigquery-public-data/thelook-ecommerce?project=tamr-internal-data-products)
 
 ## Problem Definition
@@ -40,13 +41,19 @@ Use the Docker Compose file in the repository to deploy Kestra locally on localh
 ```
 After setting up the service, connect Kestra to the cloud service account and execute the Kestra flows available in the repository.
 
-5. **Prepare Data in BigQuery**  
+4. **Prepare Data in BigQuery**  
 Run the provided SQL queries to clean the data in BigQuery. This step will prepare the data for transformation in dbt. The queries will clean and structure the data to ensure it is ready for further processing.
 
-7. **Execute dbt Project for Data Transformation**  
-Apply the dbt project from the repository to transform the data. This will involve running the necessary dbt commands to execute transformations and create the required tables, such as mart_users and fact_sales.
+5. **Execute dbt Project for Data Transformation**  
+Apply the dbt project from the repository to transform the data using the Kimball dimensional modeling approach. This includes creating the necessary tables, such as mart_users and fact_sales. To activate and run the dbt project, use the following commands:
 
-8. **Visualize Data in Power BI**  
+```bash
+dbt init # initialize your project
+dbt run  # run the dbt project
+```
+![dbt Lineage](https://github.com/mrvneslihan/Data-Pipeline-for-E-commerce-Customer-Segmentation/blob/main/lineage.png?raw=true)
+
+6. **Visualize Data in Power BI**  
 Once the data transformation is complete, open the mart_users and fact_sales tables in Power BI to visualize the segmented customers and analyze sales performance. This step will allow you to create meaningful insights based on customer segmentation and sales data.
 
 ## Costumer Segmentation Dashboard

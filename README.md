@@ -38,8 +38,7 @@ The problem can be defined as identifying customer segments and gaining insights
 Use the Docker Compose file in the repository to deploy Kestra locally on localhost:8080 or 8081. Start the Kestra host by running:
 ```bash
    docker compose up
-```
-    After setting up the service, connect Kestra to the cloud service account and execute the Kestra flows available in the repository.
+```After setting up the service, connect Kestra to the cloud service account and execute the Kestra flows available in the repository.
 
 4. **Prepare Data in BigQuery**  
 Run the provided SQL queries to clean the data in BigQuery. This step will prepare the data for transformation in dbt. The queries will clean and structure the data to ensure it is ready for further processing.
